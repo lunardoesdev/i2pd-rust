@@ -54,6 +54,8 @@ fn main() {
             ndk, host_tag, abi
         );
 
+        // it keeps saying that it fails to determine compiler no matter how I try
+        // this doesn't affect compilation
         let ndk_bin = format!("{}/toolchains/llvm/prebuilt/{}/bin", ndk, host_tag);
         config
             .env("PATH", format!("{}:{}", env::var("PATH").unwrap_or_default(), ndk_bin));
