@@ -101,14 +101,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
-name = "i2pd-rust"
-version = "0.1.0"
-dependencies = [
- "i2pd-sys",
-]
-
-[[package]]
-name = "i2pd-sys"
+name = "i2pd_rust"
 version = "0.1.0"
 dependencies = [
  "bindgen",
@@ -117,9 +110,9 @@ dependencies = [
 
 [[package]]
 name = "itertools"
-version = "0.13.0"
+version = "0.12.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "413ee7dfc52ee1a4949ceeb7dbc8a33f2d6c088194d9f922fb8318faf1f01186"
+checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
 dependencies = [
  "either",
 ]

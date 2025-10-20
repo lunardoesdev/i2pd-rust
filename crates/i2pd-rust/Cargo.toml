@@ -1,0 +1,7 @@
+[package]
+name = "i2pd-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+i2pd-sys = { path = "../i2pd-sys" }
