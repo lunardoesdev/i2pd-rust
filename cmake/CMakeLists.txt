@@ -67,6 +67,34 @@ CPMAddPackage(
           "BOOST_INSTALL_LAYOUT system"
 )
 
+# Only build android-ifaddrs on Android
+if(CMAKE_SYSTEM_NAME STREQUAL "Android")
+    # Fetch android-ifaddrs from GitHub
+    CPMAddPackage(
+        NAME android-ifaddrs
+        GITHUB_REPOSITORY PurpleI2P/android-ifaddrs
+        GIT_TAG f302cc7  # latest commit as of 2024
+    )
+
+    # Create a static library from the fetched sources
+    add_library(android-ifaddrs STATIC
+        ${android-ifaddrs_SOURCE_DIR}/ifaddrs.cpp
+        ${android-ifaddrs_SOURCE_DIR}/bionic_netlink.cpp
+    )
+
+    # Expose headers to consumers
+    target_include_directories(android-ifaddrs
+        PUBLIC
+            $<BUILD_INTERFACE:${android-ifaddrs_SOURCE_DIR}>
+    )
+
+    # Ensure position-independent code (required for static libs used in shared libs)
+    set_target_properties(android-ifaddrs PROPERTIES
+        POSITION_INDEPENDENT_CODE ON
+        CXX_STANDARD 17
+        CXX_STANDARD_REQUIRED ON
+    )
+endif()
 
 CPMAddPackage(
     NAME i2pd

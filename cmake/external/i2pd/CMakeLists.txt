@@ -19,6 +19,10 @@ set(LANG_SRC_DIR ${CMAKE_SOURCE_DIR}/i18n)
 set(DAEMON_SRC_DIR ${CMAKE_SOURCE_DIR}/daemon)
 set(I2PD_TOOLS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/i2pd-tools)
 
+if(CMAKE_SYSTEM_NAME STREQUAL "Android")
+  list(APPEND CMAKE_REQUIRED_LIBRARIES "android-ifaddrs")
+endif()
+
 # include(Version)
 # set_version("${LIBI2PD_SRC_DIR}/version.h" PROJECT_VERSION)
 
@@ -182,6 +186,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
   endif()
 endif()
 
+
+
 # compiler flags customization(by system)
 if(UNIX)
   list(APPEND DAEMON_SRC "${DAEMON_SRC_DIR}/UnixDaemon.cpp")
@@ -294,7 +300,7 @@ if(ZLIB_FOUND)
 endif()
 
 # C++ standard to use, based on compiler and version of boost
-if(NOT MSVC)
+if(NOT MSVC AND NOT (CMAKE_SYSTEM_NAME STREQUAL "Android"))
 # check for c++20 & c++17 support
   include(CheckCXXCompilerFlag)
 
