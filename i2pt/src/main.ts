@@ -9,6 +9,10 @@ async function greet() {
     greetMsgEl.textContent = await invoke("greet", {
       name: greetInputEl.value,
     });
+    // console.log("starting i2pd");
+    // await invoke("starti2pd", {
+    //   args: "--version"
+    // })
   }
 }
 
