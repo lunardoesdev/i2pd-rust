@@ -101,7 +101,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0cc23270f6e1808e30a928bdc84dea0b9b4136a8bc82338574f23baf47bbd280"
 
 [[package]]
-name = "i2pd-rust"
+name = "i2pd"
 version = "0.1.0"
 dependencies = [
  "i2pd-sys",
