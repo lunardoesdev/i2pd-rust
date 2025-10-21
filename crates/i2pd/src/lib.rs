@@ -13,17 +13,25 @@ pub fn init_raw(
 }
 
 pub fn init(
-    argc: i32,
-    argv: Vec<&str>,
+    argv: &str,
     app_name: &str,
 ) {
-    let mut cargv: Vec<*mut raw::c_char> = argv.iter()
-        .map(|s| CString::new(*s)
-            .expect("failed to create CString")
-            .into_raw())
+    let cstrings: Vec<CString> = argv
+        .split(" ")
+        .map(|s| CString::new(s)
+            .expect("failed to create CString"))
         .collect();
     
-    let cappname = CString::new(app_name).expect("failed to create CString for appname");
+    let mut cargv: Vec<*mut raw::c_char> = cstrings
+        .iter()
+        .map(|cs| cs.as_ptr() as *mut raw::c_char)
+        .collect();
+
+    let cappname = CString::new(app_name)
+        .expect("failed to create CString for appname");
+    
+    let argc: raw::c_int = cargv.len() as raw::c_int;
+    
     init_raw(argc, cargv.as_mut_ptr(), cappname.as_ptr());
 }
 
@@ -52,7 +60,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        init(2, vec!["i2pd", "--help"], "appname");
+        init("--version", "appname");
         start();
     }
 }
