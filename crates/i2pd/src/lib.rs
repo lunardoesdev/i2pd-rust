@@ -62,5 +62,6 @@ mod tests {
     fn it_works() {
         init("--version", "appname");
         start();
+        stop();
     }
 }
