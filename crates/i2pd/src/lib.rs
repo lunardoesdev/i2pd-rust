@@ -12,7 +12,7 @@ pub fn init_raw(
     }
 }
 
-pub fn init(
+pub fn init_with_appname(
     argv: &str,
     app_name: &str,
 ) {
@@ -33,6 +33,12 @@ pub fn init(
     let argc: raw::c_int = cargv.len() as raw::c_int;
     
     init_raw(argc, cargv.as_mut_ptr(), cappname.as_ptr());
+}
+
+pub fn init(
+    argv: &str,
+) {
+    init_with_appname(argv, "i2pd-rust");
 }
 
 pub fn terminate() {
@@ -60,7 +66,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        init("--version", "appname");
+        init("--version");
         start();
         stop();
     }
