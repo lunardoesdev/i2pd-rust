@@ -1,3 +1,6 @@
+use tauri::WindowEvent;
+
+
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]
 fn greet(name: &str) -> String {
@@ -39,8 +42,12 @@ pub fn run() {
             i2pd_stop,
             i2pd_terminate
         ])
-        // .invoke_handler(tauri::generate_handler![starti2pd])
-        // .invoke_handler(tauri::generate_handler![stopi2pd])
+        .on_window_event(|_window, event| {
+            if let WindowEvent::CloseRequested { .. } = event {
+                i2pd_stop();
+                i2pd_terminate();
+            }
+        })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
