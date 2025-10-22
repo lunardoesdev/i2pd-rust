@@ -46,6 +46,8 @@ async function i2pd_terminate() {
   return await invoke("i2pd_terminate")
 }
 
+let i2pd_initialised = false
+
 window.addEventListener("DOMContentLoaded", () => {
   let inp = document.querySelector("#start-i2p-input");
 
@@ -54,7 +56,10 @@ window.addEventListener("DOMContentLoaded", () => {
     let args = (inp! as HTMLInputElement).value
     await i2pd_stop()
     await i2pd_terminate()
-    await i2pd_init(args)
+    if (!i2pd_initialised) {
+      await i2pd_init(args)
+      i2pd_initialised = true
+    }
     await i2pd_start()
   });
 });
