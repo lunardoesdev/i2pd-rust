@@ -18,6 +18,10 @@ async function greet() {
 
 import i2pd from "./i2pd"
 
+import * as taurifs from '@tauri-apps/plugin-fs';
+import * as path from '@tauri-apps/api/path';
+
+
 window.addEventListener("DOMContentLoaded", () => {
   greetInputEl = document.querySelector("#greet-input");
   greetMsgEl = document.querySelector("#greet-msg");
@@ -28,11 +32,13 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
   let inp = document.querySelector("#start-i2p-input");
+  let i2p = await i2pd.getI2pd()
 
-  document.querySelector("#start-i2p-form")?.addEventListener("submit", async (e) => {
+  let btn: HTMLButtonElement = document.querySelector("#start-i2p-form")!;
+  btn.addEventListener("submit", async function (e) {
     e.preventDefault();
-    await i2pd.restart()
+    await i2p.restart();
   });
 });

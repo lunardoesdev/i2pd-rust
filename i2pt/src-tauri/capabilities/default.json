@@ -8,6 +8,22 @@
   "permissions": [
     "core:default",
     "opener:default",
-    "fs:default"
+    "fs:allow-stat",
+    "fs:allow-read-text-file",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-create",
+    "fs:allow-resource-read-recursive",
+    "fs:allow-app-meta-recursive",
+    "fs:allow-app-read-recursive",
+    "fs:allow-app-write-recursive",
+    "fs:allow-appconfig-meta-recursive",
+    "fs:allow-appconfig-read-recursive",
+    "fs:allow-appconfig-write-recursive",
+    {
+      "identifier": "fs:scope",
+      "allow": ["$RESOURCE/**/*", "$APP_CONFIG/**/*"],
+      "deny": ["$RESOURCE/secret.txt"]
+    }
   ]
 }
