@@ -16,6 +16,7 @@ async function greet() {
   }
 }
 
+import i2pd from "./i2pd"
 
 window.addEventListener("DOMContentLoaded", () => {
   greetInputEl = document.querySelector("#greet-input");
@@ -27,39 +28,11 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-/// i2pd part
-async function i2pd_init(args: string) {
-  return await invoke("i2pd_init", {
-    args: args
-  })
-}
-
-async function i2pd_start() {
-  return await invoke("i2pd_start")
-}
-
-async function i2pd_stop() {
-  return await invoke("i2pd_stop")
-}
-
-async function i2pd_terminate() {
-  return await invoke("i2pd_terminate")
-}
-
-let i2pd_initialised = false
-
 window.addEventListener("DOMContentLoaded", () => {
   let inp = document.querySelector("#start-i2p-input");
 
   document.querySelector("#start-i2p-form")?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    let args = (inp! as HTMLInputElement).value
-    await i2pd_stop()
-    await i2pd_terminate()
-    if (!i2pd_initialised) {
-      await i2pd_init(args)
-      i2pd_initialised = true
-    }
-    await i2pd_start()
+    await i2pd.restart()
   });
 });
